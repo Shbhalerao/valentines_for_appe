@@ -111,9 +111,24 @@
 
     <div class="container" id="game-box">
         <div id="intro">
-            <p>> Loading 10_Years_Memory_Log.zip...</p>
-            <h1>Hey Appe, <br> I've been running some tests on our relationship data.</h1>
-            <button onclick="showStep('quest')">RUN ANALYSIS</button>
+            <p>> Loading 14+_Years_Memory_Log.zip...</p>
+            <h1>Appe, <br> Mi kay mhntooo!!</h1>
+            <button onclick="showStep('intro_1')">BOL</button>
+        </div>
+
+        <div id="intro_1">
+            <p>> Loading 14+_Years_Memory_Log.zip...</p>
+            <h1>Shi jhali ka??</h1>
+            <div class="btn-group">
+            <button onclick="showStep('intro_2')">Ho</button>
+            <button onclick="showStep('intro_2')">Nai, kaa?</button>    
+            </div>    
+        </div>
+
+        <div id="intro_2">
+            <p>> Loading 14+_Years_Memory_Log.zip...</p>
+            <h1>Ata ek mahatvacha prashna...</h1>
+            <button onclick="showStep('quest')">Vichar!</button>    
         </div>
 
         <div id="quest" class="hidden">
@@ -145,12 +160,11 @@
         const noBtn = document.getElementById('noBtn');
 
         const prompts = [
-            "Wait, what? Remember that 4am call? You didn't say 'No' then.",
-            "Careful... the 'Short Temper' module is spiking.",
-            "Is this a strike? Did the Antwerp bus drivers teach you this?",
-            "Foreignchi patlin, this input is not allowed in BLR.",
-            "Error: Logic not found. Initiating System Override...",
-            "Just click YES, firangi!"
+            "What? Nahi mhanuch kasa shaktes tu?",
+            "Asa vichar tari kasa ala tujhya dokyat?",
+            "You are stuck with me bitchwa, you have no option!",
+            "Dhungan pe fatke dega mai!!",
+            "Gapchup Yes bol, shahne!"
         ];
 
         function showStep(id) {
