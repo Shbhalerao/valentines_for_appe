@@ -3,175 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Message for Appe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <title>System Login: Appe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=JetBrains+Mono:wght@300&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-pink: #fce4ec;
-            --dark-pink: #d81b60;
-            --soft-text: #5d4037;
+            --accent: #ff4d6d;
+            --bg: #fff5f7;
         }
 
         body {
             margin: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #fffafb;
+            background: var(--bg);
             font-family: 'Quicksand', sans-serif;
             overflow: hidden;
-            text-align: center;
         }
 
-        .container {
-            max-width: 450px;
-            padding: 30px;
+        .terminal-box {
             background: white;
+            padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.05);
+            box-shadow: 0 20px 50px rgba(255, 77, 109, 0.1);
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid rgba(255, 77, 109, 0.1);
         }
 
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.8rem;
-            color: var(--dark-pink);
-            margin-bottom: 15px;
-        }
-
-        p {
-            font-size: 1.2rem;
-            color: var(--soft-text);
-            line-height: 1.5;
-        }
+        h1 { font-family: 'Dancing Script', cursive; color: var(--accent); font-size: 2.5rem; }
+        
+        .code-font { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #888; }
 
         .btn-group {
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            min-height: 60px;
+            margin-top: 30px;
+            position: relative;
+            height: 120px;
         }
 
         button {
             padding: 12px 30px;
-            font-size: 1.1rem;
+            border-radius: 50px;
             border: none;
-            border-radius: 30px;
             cursor: pointer;
-            transition: all 0.2s ease-in-out;
             font-family: 'Quicksand', sans-serif;
-            font-weight: 500;
+            font-weight: 600;
+            transition: all 0.2s;
+            position: absolute;
         }
 
         #yesBtn {
-            background-color: var(--dark-pink);
+            background: var(--accent);
             color: white;
-            z-index: 10;
+            left: 50%;
+            transform: translateX(-110%);
+            z-index: 100;
         }
-
-        #yesBtn:hover { transform: scale(1.1); }
 
         #noBtn {
-            background-color: #eee;
-            color: #888;
-            position: relative;
+            background: #f0f0f0;
+            color: #666;
+            left: 50%;
+            transform: translateX(10%);
         }
+
+        .glitch-text { color: var(--accent); font-weight: bold; }
 
         .hidden { display: none; }
 
-        /* Floating Hearts */
-        .heart-emoji {
-            position: fixed;
-            top: -20px;
-            font-size: 24px;
-            animation: fall linear forwards;
-            z-index: 999;
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
-
-        @keyframes fall {
-            to { transform: translateY(105vh) rotate(360deg); }
-        }
+        .float { animation: float 3s ease-in-out infinite; }
     </style>
 </head>
 <body>
 
-    <div id="step1" class="container">
-        <h1>Hey Appe...</h1>
-        <p>I have a very serious, non-negotiable question to ask you. Are you ready?</p>
-        <button id="yesBtn" onclick="nextStep(1, 2)">I'm ready!</button>
-    </div>
+    <div class="terminal-box" id="container">
+        <div id="step1">
+            <p class="code-font">> System.checkIdentity("Appe")</p>
+            <h1>Are you the real Appe?</h1>
+            <p>Verification required to access this heart.</p>
+            <button id="verifyBtn" style="position:relative; transform:none;" onclick="nextStep(1, 2)">I am she. ❤️</button>
+        </div>
 
-    <div id="step2" class="container hidden">
-        <h1>Wait a sec!</h1>
-        <p>Before we go further, you have to promise to be the happiest person in the world today.</p>
-        <button id="yesBtn" onclick="nextStep(2, 3)">I promise! ❤️</button>
-    </div>
+        <div id="step2" class="hidden">
+            <p class="code-font">> status: compromised_by_beauty</p>
+            <h1>Warning!</h1>
+            <p>My system indicates a 100% chance of me being hopelessly in love with you.</p>
+            <button id="agreeBtn" style="position:relative; transform:none;" onclick="nextStep(2, 3)">Acknowledge</button>
+        </div>
 
-    <div id="step3" class="container hidden">
-        <h1>Will you be my Valentine, Appe?</h1>
-        <div class="btn-group">
-            <button id="yesBtn" onclick="celebrate()">YES</button>
-            <button id="noBtn" id="noBtn">NO</button>
+        <div id="step3" class="hidden">
+            <p class="code-font" id="terminal">运行: valentine_request.exe</p>
+            <h1 id="mainTitle">Will you be my Valentine, Appe?</h1>
+            <div class="btn-group">
+                <button id="yesBtn" onclick="celebrate()">YES</button>
+                <button id="noBtn" onmouseover="handleEvasiveNo()">NO</button>
+            </div>
+        </div>
+
+        <div id="success" class="hidden">
+            <h1 class="float">System Lock! ❤️</h1>
+            <p>Access Granted. You are now officially my Valentine, Appe.</p>
+            <p class="code-font">Life.with(Appe).status = "Perfect";</p>
         </div>
     </div>
 
-    <div id="success" class="container hidden">
-        <h1>I knew it! ❤️</h1>
-        <p>You're stuck with me, Appe. Happy Valentine's Day!</p>
-    </div>
-
     <script>
+        let noAttempts = 0;
         const noBtn = document.getElementById('noBtn');
-        let escapeMode = 0;
+        const yesBtn = document.getElementById('yesBtn');
+        const terminal = document.getElementById('terminal');
+        const mainTitle = document.getElementById('mainTitle');
 
-        function nextStep(curr, next) {
-            document.getElementById(`step${curr}`).classList.add('hidden');
+        function nextStep(current, next) {
+            document.getElementById(`step${current}`).classList.add('hidden');
             document.getElementById(`step${next}`).classList.remove('hidden');
         }
 
-        noBtn.addEventListener('mouseover', () => {
-            const padding = 50;
-            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-
-            // Cycle through 3 types of evasive maneuvers
-            if (escapeMode === 0) {
-                // 1. The Random Teleport
-                noBtn.style.position = 'fixed';
-                noBtn.style.left = (Math.random() * maxX) + 'px';
-                noBtn.style.top = (Math.random() * maxY) + 'px';
-            } else if (escapeMode === 1) {
-                // 2. The Tiny Target (Shrink)
-                const currentScale = noBtn.style.transform || "scale(1)";
-                let val = parseFloat(currentScale.replace('scale(', '')) || 1;
-                noBtn.style.transform = `scale(${val * 0.7})`;
-                noBtn.style.left = (Math.random() * maxX) + 'px';
-                noBtn.style.top = (Math.random() * maxY) + 'px';
-            } else {
-                // 3. The Corner Dash
-                noBtn.style.left = (Math.random() > 0.5 ? '10px' : maxX + 'px');
-                noBtn.style.top = (Math.random() > 0.5 ? '10px' : maxY + 'px');
+        function handleEvasiveNo() {
+            noAttempts++;
+            
+            // Tactics change every 2 hovers
+            if (noAttempts < 3) {
+                // Tactic 1: Random Jump
+                moveRandom(noBtn);
+                terminal.innerText = "> Error: Choice blocked by 'Love' firewall.";
+            } 
+            else if (noAttempts < 6) {
+                // Tactic 2: Shrink the No, Expand the Yes
+                moveRandom(noBtn);
+                let scale = 1 - (noAttempts * 0.1);
+                noBtn.style.transform = `scale(${scale})`;
+                yesBtn.style.transform = `translateX(-110%) scale(${1 + noAttempts * 0.1})`;
+                terminal.innerText = "> Warning: 'No' option is dissolving...";
+            } 
+            else if (noAttempts < 9) {
+                // Tactic 3: Change the text to confuse her
+                noBtn.innerText = "Are you sure?";
+                moveRandom(noBtn);
+                terminal.innerText = "> Warning: System recalibrating...";
+            } 
+            else {
+                // Final Tactic: The Button Swap
+                noBtn.innerText = "YES";
+                noBtn.style.background = "#ff4d6d";
+                noBtn.style.color = "white";
+                terminal.innerText = "> Override Complete. All options set to 'YES'.";
+                mainTitle.innerText = "Just click it, Appe! 😉";
             }
+        }
 
-            escapeMode = (escapeMode + 1) % 3;
-        });
+        function moveRandom(el) {
+            const x = Math.random() * (window.innerWidth - el.offsetWidth - 40) + 20;
+            const y = Math.random() * (window.innerHeight - el.offsetHeight - 40) + 20;
+            el.style.position = 'fixed';
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+        }
 
         function celebrate() {
             document.getElementById('step3').classList.add('hidden');
             document.getElementById('success').classList.remove('hidden');
+            document.body.style.background = "#ff4d6d";
+            document.getElementById('container').style.transform = "scale(1.1)";
             
-            // Heart Rain
-            for(let i=0; i<60; i++) {
-                setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.className = 'heart-emoji';
-                    heart.innerHTML = '❤️';
-                    heart.style.left = Math.random() * 100 + 'vw';
-                    heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
-                    document.body.appendChild(heart);
-                }, i * 80);
+            // Simple Heart Burst
+            for(let i=0; i<50; i++) {
+                createHeart();
             }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '-20px';
+            heart.style.fontSize = '24px';
+            heart.style.zIndex = '1000';
+            heart.style.transition = `all ${Math.random() * 2 + 2}s linear`;
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.style.transform = `translateY(110vh) translateX(${Math.random() * 100 - 50}px)`;
+                heart.style.opacity = '0';
+            }, 100);
         }
     </script>
 </body>
