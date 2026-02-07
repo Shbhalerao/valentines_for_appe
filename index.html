@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message for Appe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #f8bbd0;
+            --dark-pink: #e91e63;
+            --bg-color: #fffafb;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--bg-color);
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--dark-pink);
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .btn-group {
+            margin-top: 30px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 50px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 500;
+        }
+
+        #yesBtn {
+            background-color: var(--dark-pink);
+            color: white;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            background-color: #d81b60;
+        }
+
+        #noBtn {
+            background-color: var(--primary-pink);
+            color: white;
+            position: absolute; /* Needed for movement */
+        }
+
+        .hidden { display: none; }
+
+        /* Hearts Animation */
+        .heart {
+            position: fixed;
+            color: var(--dark-pink);
+            font-size: 20px;
+            user-select: none;
+            z-index: 1000;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="step1" class="container">
+        <h1>Hey Appe...</h1>
+        <p>I was thinking about something today and realized I had to ask you a very important question.</p>
+        <button onclick="nextStep(1, 2)">What is it?</button>
+    </div>
+
+    <div id="step2" class="container hidden">
+        <h1>Wait...</h1>
+        <p>Before we proceed, are you prepared for how much I'm going to adore you this year?</p>
+        <button onclick="nextStep(2, 3)">I think so!</button>
+    </div>
+
+    <div id="step3" class="container hidden">
+        <h1 id="questionText">Will you be my Valentine, Appe?</h1>
+        <div class="btn-group" id="btnGroup">
+            <button id="yesBtn" onclick="celebrate()">YES</button>
+            <button id="noBtn">NO</button>
+        </div>
+    </div>
+
+    <div id="success" class="container hidden">
+        <h1>Yay! ❤️</h1>
+        <p>I knew you couldn't resist. Best Valentine's ever!</p>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        let escapeCount = 0;
+
+        function nextStep(current, next) {
+            document.getElementById(`step${current}`).classList.add('hidden');
+            document.getElementById(`step${next}`).classList.remove('hidden');
+            
+            if(next === 3) {
+                // Initialize No button position within the group container
+                noBtn.style.left = "55%"; 
+            }
+        }
+
+        noBtn.addEventListener('mouseover', () => {
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+
+            // Cycle through 3 types of "No" animations
+            if (escapeCount % 3 === 0) {
+                // Type 1: Teleport to random spot
+                const randomX = Math.random() * maxX;
+                const randomY = Math.random() * maxY;
+                noBtn.style.position = 'fixed';
+                noBtn.style.left = randomX + 'px';
+                noBtn.style.top = randomY + 'px';
+            } 
+            else if (escapeCount % 3 === 1) {
+                // Type 2: Scale down (it gets harder to hit)
+                const currentScale = parseFloat(noBtn.style.transform.replace('scale(', '')) || 1;
+                noBtn.style.transform = `scale(${currentScale * 0.8})`;
+                // Also move it slightly
+                noBtn.style.left = Math.random() * maxX + 'px';
+                noBtn.style.top = Math.random() * maxY + 'px';
+            } 
+            else {
+                // Type 3: Run to a far corner
+                noBtn.style.left = (Math.random() > 0.5 ? 10 : maxX - 10) + 'px';
+                noBtn.style.top = (Math.random() > 0.5 ? 10 : maxY - 10) + 'px';
+            }
+
+            escapeCount++;
+        });
+
+        function celebrate() {
+            document.getElementById('step3').classList.add('hidden');
+            document.getElementById('success').classList.remove('hidden');
+            
+            // Heart shower
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerHTML = '❤️';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '-20px';
+                    heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    heart.style.opacity = Math.random();
+                    document.body.appendChild(heart);
+                    
+                    // Remove heart after animation
+                    setTimeout(() => heart.remove(), 5000);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
