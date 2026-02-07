@@ -3,198 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Login: Appe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=JetBrains+Mono:wght@300&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <title>Update for Appe</title>
     <style>
-        :root {
-            --accent: #ff4d6d;
-            --bg: #fff5f7;
-        }
-
         body {
             margin: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: var(--bg);
-            font-family: 'Quicksand', sans-serif;
+            background-color: #ffffff;
+            color: #111;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             overflow: hidden;
         }
 
-        .terminal-box {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(255, 77, 109, 0.1);
-            max-width: 450px;
-            width: 90%;
+        .content {
             text-align: center;
-            border: 1px solid rgba(255, 77, 109, 0.1);
+            max-width: 500px;
+            padding: 40px;
+            transition: opacity 0.8s ease;
         }
 
-        h1 { font-family: 'Dancing Script', cursive; color: var(--accent); font-size: 2.5rem; }
+        h1 { font-weight: 300; font-size: 1.6rem; letter-spacing: -0.01em; line-height: 1.4; }
         
-        .code-font { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #888; }
+        .subtext {
+            font-size: 0.75rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 20px;
+            display: block;
+        }
 
         .btn-group {
-            margin-top: 30px;
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
             position: relative;
-            height: 120px;
+            min-height: 50px;
         }
 
         button {
-            padding: 12px 30px;
-            border-radius: 50px;
-            border: none;
+            padding: 10px 30px;
+            font-size: 0.85rem;
+            border: 1px solid #eee;
+            background: white;
             cursor: pointer;
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 600;
-            transition: all 0.2s;
-            position: absolute;
+            border-radius: 2px;
+            transition: all 0.2s ease;
+            color: #111;
         }
 
-        #yesBtn {
-            background: var(--accent);
-            color: white;
-            left: 50%;
-            transform: translateX(-110%);
-            z-index: 100;
-        }
+        #yesBtn:hover { border-color: #111; background: #111; color: white; }
 
-        #noBtn {
-            background: #f0f0f0;
-            color: #666;
-            left: 50%;
-            transform: translateX(10%);
-        }
+        #noBtn { position: relative; z-index: 10; }
 
-        .glitch-text { color: var(--accent); font-weight: bold; }
-
-        .hidden { display: none; }
-
-        /* Floating Animation */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        .float { animation: float 3s ease-in-out infinite; }
+        .hidden { display: none; opacity: 0; }
     </style>
 </head>
 <body>
 
-    <div class="terminal-box" id="container">
-        <div id="step1">
-            <p class="code-font">> System.checkIdentity("Appe")</p>
-            <h1>Are you the real Appe?</h1>
-            <p>Verification required to access this heart.</p>
-            <button id="verifyBtn" style="position:relative; transform:none;" onclick="nextStep(1, 2)">I am she. ❤️</button>
-        </div>
+    <div id="step1" class="content">
+        <span class="subtext">v10.0.0 — Production</span>
+        <h1>We've been best friends for a decade. <br> I think it's time for an upgrade.</h1>
+        <button onclick="nextStep(1, 2)">Next</button>
+    </div>
 
-        <div id="step2" class="hidden">
-            <p class="code-font">> status: compromised_by_beauty</p>
-            <h1>Warning!</h1>
-            <p>My system indicates a 100% chance of me being hopelessly in love with you.</p>
-            <button id="agreeBtn" style="position:relative; transform:none;" onclick="nextStep(2, 3)">Acknowledge</button>
-        </div>
-
-        <div id="step3" class="hidden">
-            <p class="code-font" id="terminal">运行: valentine_request.exe</p>
-            <h1 id="mainTitle">Will you be my Valentine, Appe?</h1>
-            <div class="btn-group">
-                <button id="yesBtn" onclick="celebrate()">YES</button>
-                <button id="noBtn" onmouseover="handleEvasiveNo()">NO</button>
-            </div>
-        </div>
-
-        <div id="success" class="hidden">
-            <h1 class="float">System Lock! ❤️</h1>
-            <p>Access Granted. You are now officially my Valentine, Appe.</p>
-            <p class="code-font">Life.with(Appe).status = "Perfect";</p>
+    <div id="step2" class="content hidden">
+        <span class="subtext">The Question</span>
+        <h1>Will you be my Valentine, Appe?</h1>
+        <div class="btn-group">
+            <button id="yesBtn" onclick="celebrate()">Yes</button>
+            <button id="noBtn" onmouseover="handlePrank()">No</button>
         </div>
     </div>
 
-    <script>
-        let noAttempts = 0;
-        const noBtn = document.getElementById('noBtn');
-        const yesBtn = document.getElementById('yesBtn');
-        const terminal = document.getElementById('terminal');
-        const mainTitle = document.getElementById('mainTitle');
+    <div id="success" class="content hidden">
+        <h1>I'll take that as a 'Yes'.</h1>
+        <span class="subtext">Closing loop... Status: Success. ❤️</span>
+    </div>
 
-        function nextStep(current, next) {
-            document.getElementById(`step${current}`).classList.add('hidden');
-            document.getElementById(`step${next}`).classList.remove('hidden');
+    <script>
+        let attempts = 0;
+        const noBtn = document.getElementById('noBtn');
+
+        function nextStep(curr, next) {
+            document.getElementById(`step${curr}`).style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById(`step${curr}`).classList.add('hidden');
+                const nextEl = document.getElementById(`step${next}`);
+                nextEl.classList.remove('hidden');
+                setTimeout(() => nextEl.style.opacity = '1', 50);
+            }, 800);
         }
 
-        function handleEvasiveNo() {
-            noAttempts++;
+        function handlePrank() {
+            attempts++;
             
-            // Tactics change every 2 hovers
-            if (noAttempts < 3) {
-                // Tactic 1: Random Jump
-                moveRandom(noBtn);
-                terminal.innerText = "> Error: Choice blocked by 'Love' firewall.";
+            if (attempts < 3) {
+                // Tactic 1: The Smooth Slide (Horizontal push)
+                const offset = attempts * 150;
+                noBtn.style.transform = `translateX(${offset}px)`;
             } 
-            else if (noAttempts < 6) {
-                // Tactic 2: Shrink the No, Expand the Yes
-                moveRandom(noBtn);
-                let scale = 1 - (noAttempts * 0.1);
-                noBtn.style.transform = `scale(${scale})`;
-                yesBtn.style.transform = `translateX(-110%) scale(${1 + noAttempts * 0.1})`;
-                terminal.innerText = "> Warning: 'No' option is dissolving...";
-            } 
-            else if (noAttempts < 9) {
-                // Tactic 3: Change the text to confuse her
-                noBtn.innerText = "Are you sure?";
-                moveRandom(noBtn);
-                terminal.innerText = "> Warning: System recalibrating...";
+            else if (attempts < 6) {
+                // Tactic 2: The Ghost (Disappears when hovered)
+                noBtn.style.opacity = "0";
+                setTimeout(() => {
+                    // Move it to a random spot while invisible
+                    const x = Math.random() * (window.innerWidth - 100);
+                    const y = Math.random() * (window.innerHeight - 50);
+                    noBtn.style.position = 'fixed';
+                    noBtn.style.left = x + 'px';
+                    noBtn.style.top = y + 'px';
+                    noBtn.style.transform = 'none';
+                    noBtn.style.opacity = "1";
+                }, 400);
             } 
             else {
-                // Final Tactic: The Button Swap
-                noBtn.innerText = "YES";
-                noBtn.style.background = "#ff4d6d";
+                // Tactic 3: The Reality Bend (Becomes a Yes button)
+                noBtn.innerText = "Yes";
+                noBtn.style.background = "#111";
                 noBtn.style.color = "white";
-                terminal.innerText = "> Override Complete. All options set to 'YES'.";
-                mainTitle.innerText = "Just click it, Appe! 😉";
+                noBtn.onclick = celebrate; // Now it actually works!
             }
-        }
-
-        function moveRandom(el) {
-            const x = Math.random() * (window.innerWidth - el.offsetWidth - 40) + 20;
-            const y = Math.random() * (window.innerHeight - el.offsetHeight - 40) + 20;
-            el.style.position = 'fixed';
-            el.style.left = x + 'px';
-            el.style.top = y + 'px';
         }
 
         function celebrate() {
-            document.getElementById('step3').classList.add('hidden');
-            document.getElementById('success').classList.remove('hidden');
-            document.body.style.background = "#ff4d6d";
-            document.getElementById('container').style.transform = "scale(1.1)";
-            
-            // Simple Heart Burst
-            for(let i=0; i<50; i++) {
-                createHeart();
-            }
-        }
-
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.style.position = 'fixed';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.top = '-20px';
-            heart.style.fontSize = '24px';
-            heart.style.zIndex = '1000';
-            heart.style.transition = `all ${Math.random() * 2 + 2}s linear`;
-            document.body.appendChild(heart);
-
-            setTimeout(() => {
-                heart.style.transform = `translateY(110vh) translateX(${Math.random() * 100 - 50}px)`;
-                heart.style.opacity = '0';
-            }, 100);
+            nextStep(2, 'success');
         }
     </script>
 </body>
